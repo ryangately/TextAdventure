@@ -1,11 +1,17 @@
 // TEXT ADVENTURE SCRIPT
 // Each section should have a room header: $$ and the room number.
-// The following line is the room description.
-// Room descriptions should end with a following line of ##.
+// The following lines are the room description.
+// Each section should also have a room variables key: %% and the room number.
+// The first line of the variables key are the valid movement directions: NSEW
+// The second line are the valid LOOK keywords.
+// The third line are the valid TAKE keywords.
+// Each section should end with a new line of ##.
 // Test should not exceed this line ------------------------------------------
 
 $$HELP
 Type a command followed by a target. The commands are GO, LOOK, and TAKE.
+The GO targets are NORTH, SOUTH, EAST, WEST.
+The LOOK and TAKE targets depend on the room. Use the descriptions for clues.
 QUIT will exit the game.
 ##
 
@@ -14,4 +20,10 @@ You wake up in a dark room. The only light comes from a candle on the stone
 floor next to you. The room is square, each of the four walls of pale stone
 is inlaid with faint patterns. There are two wooden doors on adjoining walls,
 each with a large brass ring for a handle.
+##
+
+%%0
+1 0 1 0
+candle wall door null
+candle null
 ##
