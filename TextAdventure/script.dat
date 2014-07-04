@@ -1,0 +1,17 @@
+// TEXT ADVENTURE SCRIPT
+// Each section should have a room header: $$ and the room number.
+// The following line is the room description.
+// Room descriptions should end with a following line of ##.
+// Test should not exceed this line ------------------------------------------
+
+$$HELP
+Type a command followed by a target. The commands are GO, LOOK, and TAKE.
+QUIT will exit the game.
+##
+
+$$0
+You wake up in a dark room. The only light comes from a candle on the stone
+floor next to you. The room is square, each of the four walls of pale stone
+is inlaid with faint patterns. There are two wooden doors on adjoining walls,
+each with a large brass ring for a handle.
+##
