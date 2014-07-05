@@ -4,9 +4,13 @@
 // The room description should use the key $$.
 // Each section should also have a room variables key %%.
 // The first line of the variables key are the valid movement directions: NSEW
-// The second line are the valid LOOK keywords.
-// The third line are the valid TAKE keywords.
+// The second line are the valid LOOK keywords. Maximum of 9.
+// The third line are the valid TAKE keywords. Maximum of 3.
+// The fourth line are the valid USE keywords. Maximum of 9.
 // Each section should also have look descriptions using the key @@.
+// 
+// There are also a list of inventory item descriptions.
+// Finally, there are USE descriptions with the key **.
 // Test should not exceed this line ------------------------------------------
 
 $$HELP
@@ -17,6 +21,7 @@ INVENTORY will list the items in your inventory.
 QUIT will exit the game.
 ##
 
+// ROOM 0
 $$0
 You wake up in a dark room. The only light comes from a candle on the stone
 floor next to you. The room is square, each of the four walls of pale stone
@@ -27,6 +32,7 @@ each with a large brass ring for a handle.
 %%0
 1 0 1 0
 candle wall door null
+candle null
 candle null
 ##
 
@@ -42,6 +48,7 @@ The wall is cool.
 It's a door.
 ##
 
+// ROOM 3
 $$3
 You're in another room!
 ##
@@ -50,4 +57,15 @@ You're in another room!
 0 1 0 0
 null
 null
+null
+##
+
+// INVENTORY ITEMS
+@@candle
+It's a candle you took.
+##
+
+// USE ITEMS
+**candle
+You light it. Now you can see!
 ##

@@ -22,6 +22,7 @@ string command = "";
 int go[4] = {}; // shows the legal movements for a room in order of north, south, east, west
 string look[9] = {}; // the legal targets for the look command for the current room
 string take[3] = {};
+string use[9] = {};
 string inventory[9] = {"compass"};
 ifstream script;
 const string scriptPath = "script.dat"; // location of the local script file
@@ -77,20 +78,31 @@ string readScript(string key)
 	return dialog;
 }
 
-// Prints the room description
+// Prints the room description and loads room arrays
 string newRoom()
 {
 	string roomKey = "$$" + to_string(room);
 	string roomVar = "%%" + to_string(room);
+	string marker = "";
+
+	// reset room arrays
+	for (int i = 0; i < 9; i++)
+	{
+		look[i] = "";
+		use[i] = "";
+		if (i < 3)
+		{
+			take[i] = "";
+		}
+	}
+
+	script.open(scriptPath);
 
 	//
 	// Load the GO, LOOK, and TAKE arrays from the script
 	//
 
 	// Load the GO array from the script
-	string marker = "";
-
-	script.open(scriptPath);
 	while (marker != roomVar)
 	{
 		getline(script, marker);
@@ -114,14 +126,38 @@ string newRoom()
 	// End LOOK loading.
 
 	// Load the TAKE array from the script
+	// Check if the item has already been picked up
+	// If it hasn't, load it to the TAKE array.
 	count = 0;
 	script >> marker;
 	while (marker != "null")
 	{
-		take[count++] = marker;
+		bool pickedUp = false;
+		for (int i = 0; i < 9; i++)
+		{
+			if (inventory[i] == marker)
+			{
+				pickedUp = true;
+			}
+		}
+		if (!pickedUp)
+		{
+			take[count] = marker;
+		}
+		count++;
 		script >> marker;
 	}
 	// End TAKE loading.
+
+	// Load the USE array from the script.
+	count = 0;
+	script >> marker;
+	while (marker != "null")
+	{
+		use[count++] = marker;
+		script >> marker;
+	}
+	// End USE loading.
 
 	script.close();
 
@@ -198,10 +234,18 @@ string parser()
 	}
 
 	// Process the LOOK command
-	// Check all of the possible look options in the array
+	// Check the player's inventory and then all the options in
+	// the look array.
 	// If there is a match, pull the description from the script.
 	else if (com == "look")
 	{
+		for (int i = 0; i < 9; i++)
+		{
+			if (tar == inventory[i])
+			{
+				return readScript("@@" + inventory[i]);
+			}
+		}
 		for (int i = 0; i < 9; i++)
 		{
 			if (tar == look[i])
@@ -237,6 +281,28 @@ string parser()
 		return "You can't do that.";
 	}
 
+	// Process the USE command.
+	// Check the room's USE array, then check the player's inventory.
+	// If there is a match on both, pull the text from the script.
+	else if (com == "use")
+	{
+		for (int i = 0; i < 9; i++)
+		{
+			if (tar == inventory[i])
+			{
+				for (int n = 0; n < 9; n++)
+				{
+					if (use[n] == tar)
+					{
+						return readScript("**" + tar);
+					}
+				}
+				return "You can't use that here.";
+			}
+		}
+		return "You can't do that.";
+	}
+
 	// Shows the list of items in the player's inventory.
 	else if (com == "inventory")
 	{
@@ -256,6 +322,7 @@ string parser()
 		cout << go[0] << go[1] << go[2] << go[3] << '\n';
 		cout << look[0] << look[1] << look[2] << '\n';
 		cout << take[0] << '\n';
+		cout << use[0] << use[1] << use[2] << '\n';
 
 		//cout << com << ' ' << tar << endl; // DEBUG
 	}
@@ -266,9 +333,7 @@ string parser()
 // Converts the player's command string to lowercase
 void lowerCommand()
 {
-	int length = command.length();
-
-	for (int i = 0; i < length; i++)
+	for (unsigned int i = 0; i < command.length(); i++)
 	{
 		command.at(i) = tolower(command.at(i));
 	}
