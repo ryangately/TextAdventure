@@ -22,9 +22,13 @@ string command = "";
 int go[4] = {}; // shows the legal movements for a room in order of north, south, east, west
 string look[9] = {}; // the legal targets for the look command for the current room
 string take[3] = {};
+string inventory[9] = {"compass"};
 ifstream script;
 const string scriptPath = "script.dat"; // location of the local script file
 
+// MAIN function
+// Loops through the user's commands and script responses
+// until the done flag is turned on.
 int main()
 {
 	while (!done)
@@ -41,7 +45,6 @@ int main()
 	}
 	return 0;
 }
-
 
 // Reads the script starting at the input token and returns
 // a string for printing
@@ -81,7 +84,7 @@ string newRoom()
 	string roomVar = "%%" + to_string(room);
 
 	//
-	// Load all three target arrays from the script
+	// Load the GO, LOOK, and TAKE arrays from the script
 	//
 
 	// Load the GO array from the script
@@ -119,12 +122,8 @@ string newRoom()
 		script >> marker;
 	}
 	// End TAKE loading.
-	script.close();
 
-	// DEBUG -- Print the target arrays
-	//cout << go[0] << go[1] << go[2] << go[3] << '\n';
-	//cout << look[0] << look[1] << look[2] << '\n';
-	//cout << take[0] << '\n';
+	script.close();
 
 	return readScript(roomKey);
 }
@@ -149,7 +148,7 @@ string parser()
 	string com = "";
 	string tar = "";
 	auto split = false;
-	for (int i = 0; i < command.length(); i++)
+	for (unsigned int i = 0; i < command.length(); i++)
 	{
 		if (command.at(i) != ' ' && !split)
 		{
@@ -165,7 +164,102 @@ string parser()
 		}
 	}
 
-	//cout << com << ' ' << tar << endl; // DEBUG
+	// Process the GO command.
+	if (com == "go")
+	{
+		if (tar == "north" && go[0] == 1)
+		{
+			room += 3;
+			travel = true;
+			return "You go north.";
+		}
+		else if (tar == "south" && go[1] == 1)
+		{
+			room -= 3;
+			travel = true;
+			return "You go south.";
+		}
+		else if (tar == "east" && go[2] == 1)
+		{
+			room += 1;
+			travel = true;
+			return "You go east.";
+		}
+		else if (tar == "west" && go[3] == 1)
+		{
+			room -= 1;
+			travel = true;
+			return "You go west.";
+		}
+		else
+		{
+			return "You can't go that way.";
+		}
+	}
+
+	// Process the LOOK command
+	// Check all of the possible look options in the array
+	// If there is a match, pull the description from the script.
+	else if (com == "look")
+	{
+		for (int i = 0; i < 9; i++)
+		{
+			if (tar == look[i])
+			{
+				return readScript("@@" + to_string(room) + look[i]);
+			}
+		}
+		return "You can't do that.";
+	}
+
+	// Process the TAKE command
+	// Check all of the available items by looking through the array.
+	// If there is a match, iterate through the user's
+	// inventory and add it to the first empty spot.
+	else if (com == "take")
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			if (tar == take[i])
+			{
+				for (int n = 0; n < 9; n++)
+				{
+					if (inventory[n] == "")
+					{
+						inventory[n] = tar; // add the item to the player inventory
+						take[i] = ""; // remove the item from the room's take array
+						break;
+					}
+				}
+				return ("You take the " + tar + '.');
+			}
+		}
+		return "You can't do that.";
+	}
+
+	// Shows the list of items in the player's inventory.
+	else if (com == "inventory")
+	{
+		string invList = "Items in your inventory:";
+		for (int i = 0; inventory[i] != ""; i++)
+		{
+			invList += ('\n' + inventory[i]);
+		}
+		return invList;
+	}
+
+	// DEBUG command
+	// Comment this section for release builds!
+	else if (com == "debug")
+	{
+		// DEBUG -- Print the target arrays
+		cout << go[0] << go[1] << go[2] << go[3] << '\n';
+		cout << look[0] << look[1] << look[2] << '\n';
+		cout << take[0] << '\n';
+
+		//cout << com << ' ' << tar << endl; // DEBUG
+	}
+	
 	return "DEBUG";
 }
 

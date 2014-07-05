@@ -1,17 +1,19 @@
 // TEXT ADVENTURE SCRIPT
-// Each section should have a room header: $$ and the room number.
-// The following lines are the room description.
-// Each section should also have a room variables key: %% and the room number.
+// Each section should have a room header and the room number.
+// Each section should end with a new line of ##.
+// The room description should use the key $$.
+// Each section should also have a room variables key %%.
 // The first line of the variables key are the valid movement directions: NSEW
 // The second line are the valid LOOK keywords.
 // The third line are the valid TAKE keywords.
-// Each section should end with a new line of ##.
+// Each section should also have look descriptions using the key @@.
 // Test should not exceed this line ------------------------------------------
 
 $$HELP
 Type a command followed by a target. The commands are GO, LOOK, and TAKE.
 The GO targets are NORTH, SOUTH, EAST, WEST.
 The LOOK and TAKE targets depend on the room. Use the descriptions for clues.
+INVENTORY will list the items in your inventory.
 QUIT will exit the game.
 ##
 
@@ -26,4 +28,26 @@ each with a large brass ring for a handle.
 1 0 1 0
 candle wall door null
 candle null
+##
+
+@@0candle
+It's a candle.
+##
+
+@@0wall
+The wall is cool.
+##
+
+@@0door
+It's a door.
+##
+
+$$3
+You're in another room!
+##
+
+%%3
+0 1 0 0
+null
+null
 ##
