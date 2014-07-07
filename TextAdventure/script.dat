@@ -21,27 +21,49 @@ INVENTORY will list the items in your inventory.
 QUIT will exit the game.
 ##
 
+// INTRO
+$$INTRO
+SONG OF THE DEEP
+A text adventure
+By Ryan Gately
+...
+Type help for a list of commands.
+
+...
+You wake up to the gentle flickering of light from a lantern. Your body is
+wet and aches all over. The cold stone floor stings your palms as you push
+yourself up. The air smells of salt and metal.
+
+As you begin ringing the water out of the ragged remains of your clothing, a
+small object clatters onto the cold floor. You pick it up and look it over
+to discover that it's a compass. You slip it back into your pocket.
+
+You start to look around with only the lantern's flame to show the way.
+##
+
 // ROOM 0
 $$0
-You wake up in a dark room. The only light comes from a candle on the stone
-floor next to you. The room is square, each of the four walls of pale stone
-is inlaid with faint patterns. There are two wooden doors on adjoining walls,
-each with a large brass ring for a handle.
+The room is rectangular, each of the four walls of pale stone is inlaid 
+with faint patterns. There are two wooden doors on adjoining walls, one to 
+the north and one to the east, each with a large brass ring for a handle.
 ##
 
 %%0
 1 0 1 0
-candle wall door null
-candle null
-candle null
-##
-
-@@0candle
-It's a candle.
+wall door null
+null
+null
 ##
 
 @@0wall
-The wall is cool.
+The patterns are set into the wall, some so shallow that they've almost
+faded entirely. The shapes are fluid, curving into one another endlessly.
+You can't tell whether or not they've formed naturally.
+
+Then your fingertips trace over angled shapes. There are words written
+into the stone...
+
+What is dead may never die.
 ##
 
 @@0door
@@ -61,11 +83,15 @@ null
 ##
 
 // INVENTORY ITEMS
-@@candle
-It's a candle you took.
+@@lantern
+It's a lantern.
+##
+
+@@compass
+It's a compass.
 ##
 
 // USE ITEMS
-**candle
+**lantern
 You light it. Now you can see!
 ##

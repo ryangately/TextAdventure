@@ -12,6 +12,7 @@ using namespace std;
 string readScript(string);
 string newRoom();
 string parser();
+void useTrigger(string);
 void lowerCommand();
 
 // global variables
@@ -23,7 +24,8 @@ int go[4] = {}; // shows the legal movements for a room in order of north, south
 string look[9] = {}; // the legal targets for the look command for the current room
 string take[3] = {};
 string use[9] = {};
-string inventory[9] = {"compass"};
+string inventory[9] = {"compass", "lantern"};
+bool triggers[9] = {};
 ifstream script;
 const string scriptPath = "script.dat"; // location of the local script file
 
@@ -32,6 +34,7 @@ const string scriptPath = "script.dat"; // location of the local script file
 // until the done flag is turned on.
 int main()
 {
+	cout << readScript("$$INTRO") << endl;
 	while (!done)
 	{
 		cout << newRoom() << endl;
@@ -294,6 +297,7 @@ string parser()
 				{
 					if (use[n] == tar)
 					{
+						useTrigger(tar);
 						return readScript("**" + tar);
 					}
 				}
@@ -328,6 +332,15 @@ string parser()
 	}
 	
 	return "DEBUG";
+}
+
+// Turns on flags after certain items are used
+void useTrigger(string item)
+{
+	if (item == "candle")
+	{
+		triggers[0] = true;
+	}
 }
 
 // Converts the player's command string to lowercase
