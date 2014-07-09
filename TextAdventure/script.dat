@@ -38,14 +38,14 @@ As you begin ringing the water out of the ragged remains of your clothing, a
 small object clatters onto the cold floor. You pick it up and look it over
 to discover that it's a compass. You slip it back into your pocket.
 
-You start to look around with only the lantern's flame to show the way.
+You begin to look around with only the lantern's flame to show the way.
 ##
 
 // ROOM 0
 $$0
-The room is rectangular, each of the four walls of pale stone is inlaid 
-with faint patterns. There are two wooden doors on adjoining walls, one to 
-the north and one to the east, each with a large brass ring for a handle.
+The room is rectangular, each of the four walls of pale stone is inlaid with 
+faint patterns. There are two wooden doors on adjoining walls, one to the 
+north and one to the east, each with a large brass ring for a handle.
 ##
 
 %%0
@@ -56,18 +56,64 @@ null
 ##
 
 @@0wall
-The patterns are set into the wall, some so shallow that they've almost
-faded entirely. The shapes are fluid, curving into one another endlessly.
-You can't tell whether or not they've formed naturally.
+The patterns are set into the wall, some so shallow that they've almost faded 
+entirely. The shapes are fluid, curving into one another endlessly. You can't 
+tell whether or not they've formed naturally.
 
-Then your fingertips trace over angled shapes. There are words written
-into the stone...
+Then your fingertips trace over angled shapes. There are words written into 
+the stone...
 
 What is dead may never die.
 ##
 
 @@0door
-It's a door.
+The wood the doors are carved from is old, worn, and has begun to petrify.
+Your fingers glide over the surface easily. The years have worn away any
+roughness it once had. The brass handles are secured with a second ring set
+into the door.
+##
+
+// Test should not exceed this line ------------------------------------------
+
+// ROOM 1
+$$1
+Coming out of a short passage from the west, the elements take hold. There is 
+wind and rain and cold. You are surrounded by great pillars and walls of 
+stone, standing at least fifty feet. There are wide steps leading down, where 
+the sea crashes against stone and the howling wind flings the rain in all 
+directions.
+
+The hull of a boat knocks against the rocks below, tied to a sharp rock by
+rope. Beyond it the waves rise and fall in an endless fit, giving brief
+glimpses of jagged rock that would make travel perilous, if not impossible.
+##
+
+%%1
+0 0 0 1
+pillars boat rope null
+rope null
+map null
+##
+
+@@1pillars
+The stone pillars are enormous, their width is probably ten feet. There are
+hints of markings on the surface, but the elements have removed all of them
+except for a few traces on the back side.
+
+The pillars, the steps, the markings -- all of it is too significant to be 
+anything less than a temple.
+##
+
+@@1boat
+The small ship appears to be in good enough condition to sail, if only the 
+storm would let up and the rocks would recede. There is some spare rope tied
+to the mast.
+##
+
+@@1rope
+The rope that anchors the boat is heavy and strong. It has managed to hold
+the boat in place for this long, at least. There is more on the boat, some 
+light enough to carry.
 ##
 
 // ROOM 3
@@ -89,6 +135,10 @@ It's a lantern.
 
 @@compass
 It's a compass.
+##
+
+@@rope
+A length of rope from the boat. It's strong enough to hold your weight.
 ##
 
 // USE ITEMS

@@ -9,7 +9,7 @@ Text Adventure game!
 using namespace std;
 
 // prototypes
-string readScript(string);
+string readScript(const string&);
 string newRoom();
 string parser();
 void useTrigger(string);
@@ -20,12 +20,13 @@ auto done = false; // turn on when the player wins or quits the game
 auto travel = false; // turn on when the player changes rooms, then back off
 auto room = 0;
 string command = "";
+const auto MAXITEMS = 9;
 int go[4] = {}; // shows the legal movements for a room in order of north, south, east, west
-string look[9] = {}; // the legal targets for the look command for the current room
+string look[MAXITEMS] = {}; // the legal targets for the look command for the current room
 string take[3] = {};
-string use[9] = {};
-string inventory[9] = {"compass", "lantern"};
-bool triggers[9] = {};
+string use[MAXITEMS] = {};
+string inventory[MAXITEMS] = {"compass", "lantern"};
+bool triggers[MAXITEMS] = {};
 ifstream script;
 const string scriptPath = "script.dat"; // location of the local script file
 
@@ -52,7 +53,7 @@ int main()
 
 // Reads the script starting at the input token and returns
 // a string for printing
-string readScript(string key)
+string readScript(const string &key)
 {
 	string dialog = "";
 	string marker = "";
@@ -63,6 +64,10 @@ string readScript(string key)
 		getline(script, marker);
 	}
 
+	getline(script, dialog, '#');
+
+	// Old loop
+	/*
 	getline(script, marker);
 	while (marker != "##")
 	{
@@ -76,6 +81,7 @@ string readScript(string key)
 		}
 		getline(script, marker);
 	}
+	*/
 
 	script.close();
 	return dialog;
@@ -242,14 +248,14 @@ string parser()
 	// If there is a match, pull the description from the script.
 	else if (com == "look")
 	{
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < MAXITEMS; i++)
 		{
 			if (tar == inventory[i])
 			{
 				return readScript("@@" + inventory[i]);
 			}
 		}
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < MAXITEMS; i++)
 		{
 			if (tar == look[i])
 			{
@@ -269,7 +275,7 @@ string parser()
 		{
 			if (tar == take[i])
 			{
-				for (int n = 0; n < 9; n++)
+				for (int n = 0; n < MAXITEMS; n++)
 				{
 					if (inventory[n] == "")
 					{
@@ -289,11 +295,11 @@ string parser()
 	// If there is a match on both, pull the text from the script.
 	else if (com == "use")
 	{
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < MAXITEMS; i++)
 		{
 			if (tar == inventory[i])
 			{
-				for (int n = 0; n < 9; n++)
+				for (int n = 0; n < MAXITEMS; n++)
 				{
 					if (use[n] == tar)
 					{
@@ -315,7 +321,7 @@ string parser()
 		{
 			invList += ('\n' + inventory[i]);
 		}
-		return invList;
+		return invList + '\n';
 	}
 
 	// DEBUG command
@@ -331,7 +337,7 @@ string parser()
 		//cout << com << ' ' << tar << endl; // DEBUG
 	}
 	
-	return "DEBUG";
+	return "You can't do that.";
 }
 
 // Turns on flags after certain items are used
