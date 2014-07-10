@@ -11,13 +11,15 @@
 // 
 // There are also a list of inventory item descriptions.
 // Finally, there are USE descriptions with the key **.
-// Test should not exceed this line ------------------------------------------
+// Text should not exceed this line ------------------------------------------
 
 $$HELP
-Type a command followed by a target. The commands are GO, LOOK, and TAKE.
+Type a command followed by a target. The commands are GO, LOOK, TAKE, USE.
 The GO targets are NORTH, SOUTH, EAST, WEST.
 The LOOK and TAKE targets depend on the room. Use the descriptions for clues.
-INVENTORY will list the items in your inventory.
+Examples are GO NORTH or LOOK PAINTING.
+INVENTORY will list the items in your inventory. You can USE or LOOK at items
+you're carrying.
 QUIT will exit the game.
 ##
 
@@ -73,15 +75,15 @@ roughness it once had. The brass handles are secured with a second ring set
 into the door.
 ##
 
-// Test should not exceed this line ------------------------------------------
+// Text should not exceed this line ------------------------------------------
 
 // ROOM 1
 $$1
 Coming out of a short passage from the west, the elements take hold. There is 
 wind and rain and cold. You are surrounded by great pillars and walls of 
-stone, standing at least fifty feet. There are wide steps leading down, where 
-the sea crashes against stone and the howling wind flings the rain in all 
-directions.
+stone, standing at least fifty feet. There are wide steps leading down into
+the water, where the sea crashes against stone and the howling wind flings
+the rain in all directions.
 
 The hull of a boat knocks against the rocks below, tied to a sharp rock by
 rope. Beyond it the waves rise and fall in an endless fit, giving brief
@@ -90,7 +92,7 @@ glimpses of jagged rock that would make travel perilous, if not impossible.
 
 %%1
 0 0 0 1
-pillars boat rope null
+pillars boat rope sea null
 rope null
 map null
 ##
@@ -111,10 +113,18 @@ to the mast.
 ##
 
 @@1rope
-The rope that anchors the boat is heavy and strong. It has managed to hold
-the boat in place for this long, at least. There is more on the boat, some 
-light enough to carry.
+The rope that anchors the boat is heavy and strong. It has managed to hold the
+boat in place for this long, at least. There is more on the boat, some light
+enough to carry.
 ##
+
+@@1sea
+You look out as far as the rain and darkness allow and see only jagged rocks
+and crashing waves. Venturing out into the storm would mean certain death for
+anyone who couldn't navigate through the rocks.
+##
+
+// Text should not exceed this line ------------------------------------------
 
 // ROOM 3
 $$3
@@ -130,11 +140,12 @@ null
 
 // INVENTORY ITEMS
 @@lantern
-It's a lantern.
+A simple iron lantern that encloses a candle.
 ##
 
 @@compass
-It's a compass.
+A finely crafted compass. When closed it closely resembles a pocket watch.
+You can tell what direction you're moving with it.
 ##
 
 @@rope
