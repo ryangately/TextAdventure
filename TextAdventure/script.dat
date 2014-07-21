@@ -62,7 +62,7 @@ The patterns are set into the wall, some so shallow that they've almost faded
 entirely. The shapes are fluid, curving into one another endlessly. You can't 
 tell whether or not they've formed naturally.
 
-Then your fingertips trace over angled shapes. There are words written into 
+Then your fingertips trace over angled edges. There are words written into 
 the stone...
 
 What is dead may never die.
@@ -128,14 +128,34 @@ anyone who couldn't navigate through the rocks.
 
 // ROOM 3
 $$3
-You're in another room!
+An old rusted brazier sits on a landing platform between two sets of stairs.
+The stairs lead down to the south and up to the east. From the looks of it,
+it has been some time since a fire was burned here. The brazier is now filled
+with a shallow pool of ash clouded water.
+
+More interesting are the set of daggers laying in the brazier. The designs
+are ornate, and would have been prized possessions. Now the delicate markings
+are worn down and the blades are dark with rust.
 ##
 
 %%3
-0 1 0 0
+0 1 1 0
+brazier daggers water null
+dagger null
 null
-null
-null
+##
+
+@@3brazier
+The brazier is about a foot high. It looks to be made from iron. There are
+a few daggers laying inside.
+##
+
+@@3daggers
+heh
+##
+
+@@3water
+lol
 ##
 
 // INVENTORY ITEMS

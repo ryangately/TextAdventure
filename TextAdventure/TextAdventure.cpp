@@ -209,8 +209,39 @@ string parser()
 		}
 	}
 
+	// Shows the list of items in the player's inventory.
+	if (com == "inventory")
+	{
+		string invList = "Items in your inventory:";
+		for (int i = 0; inventory[i] != ""; i++)
+		{
+			invList += ('\n' + inventory[i]);
+		}
+		return invList + '\n';
+	}
+
+	// DEBUG command
+	// Comment this section for release builds!
+	else if (com == "debug")
+	{
+		// DEBUG -- Print the target arrays
+		cout << go[0] << go[1] << go[2] << go[3] << '\n';
+		cout << look[0] << look[1] << look[2] << '\n';
+		cout << take[0] << '\n';
+		cout << use[0] << use[1] << use[2] << '\n';
+
+		//cout << com << ' ' << tar << endl; // DEBUG
+	}
+
+	// Check to make sure there is a target
+	// No single word commands can be processed past this point
+	else if (tar == "")
+	{
+		return "You can't do that.";
+	}
+
 	// Process the GO command.
-	if (com == "go")
+	else if (com == "go")
 	{
 		if (tar == "north" && go[0] == 1)
 		{
@@ -311,30 +342,6 @@ string parser()
 			}
 		}
 		return "You can't do that.";
-	}
-
-	// Shows the list of items in the player's inventory.
-	else if (com == "inventory")
-	{
-		string invList = "Items in your inventory:";
-		for (int i = 0; inventory[i] != ""; i++)
-		{
-			invList += ('\n' + inventory[i]);
-		}
-		return invList + '\n';
-	}
-
-	// DEBUG command
-	// Comment this section for release builds!
-	else if (com == "debug")
-	{
-		// DEBUG -- Print the target arrays
-		cout << go[0] << go[1] << go[2] << go[3] << '\n';
-		cout << look[0] << look[1] << look[2] << '\n';
-		cout << take[0] << '\n';
-		cout << use[0] << use[1] << use[2] << '\n';
-
-		//cout << com << ' ' << tar << endl; // DEBUG
 	}
 	
 	return "You can't do that.";
